@@ -1,43 +1,39 @@
-// import { useTheme } from "../../context/Theme/useTheme";
-
 import { Link } from "react-router-dom";
 import "./Header.css";
-export default function Navbar() {
+
+export default function Header() {
     return (
-        <header className="container">
-            <nav className="d-flex justify-content-between align-items-center py-3">
-                {/* Logo */}
-                <div className="d-flex align-items-center">
-                    <Link to="/">
-                        {" "}
-                        <img
-                            className="logo"
-                            src="/icons/image1.png"
-                            alt="Pro-Tasker logo"
-                        />{" "}
-                    </Link>
+        <header className="header-container">
+            <nav className="main-nav">
+                {/* Logo Section */}
+                <Link to="/" className="brand">
+                    <img
+                        src="/icons/image1.png"
+                        alt="Pro-Tasker logo"
+                        className="logo"
+                    />
+                    <span className="brand-name">Pro-Tasker</span>
+                </Link>
+
+                {/* Links Section */}
+                <div className="nav-menu">
+                    <ul className="nav-links">
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/tasks">Tasks</Link>
+                        </li>
+                    </ul>
+
+                    <ul className="auth-links">
+                        <li>
+                            <Link to="/login" className="login-btn">
+                                Login
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
-
-                {/* Navigation */}
-                <ul className="nav nav-pills">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/">
-                            Home
-                        </Link>
-                    </li>
-
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/login">
-                            Login
-                        </Link>
-                    </li>
-
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/register">
-                            Register
-                        </Link>
-                    </li>
-                </ul>
             </nav>
         </header>
     );

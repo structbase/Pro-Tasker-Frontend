@@ -1,4 +1,63 @@
+.header-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.header-container a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.header-container {
+    width: 100%;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .logo {
     height: 40px;
-    margin-right: 1rem;
+    display: block;
+}
+
+.brand-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-links,
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.login-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white !important;
+    border-radius: 4px;
 }
