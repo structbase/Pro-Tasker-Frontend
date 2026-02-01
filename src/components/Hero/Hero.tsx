@@ -14,14 +14,14 @@ export default function Hero() {
 
                 <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
                     <Link
-                        to="/login"
+                        to="/register"
                         className="btn btn-primary btn-lg px-4 gap-3"
                     >
                         Register
                     </Link>
 
                     <Link
-                        to="/register"
+                        to="/login"
                         className="btn btn-outline-secondary btn-lg px-4"
                     >
                         Login
