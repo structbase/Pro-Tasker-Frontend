@@ -5,6 +5,8 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { ThemeProvider } from "./context/Theme/ThemeProvider";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import TasksPage from "./pages/TasksPage/TasksPage";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 
 export default function App() {
@@ -20,6 +22,14 @@ export default function App() {
                             <Route
                                 path="/register"
                                 element={<RegisterPage />}
+                            />
+                            <Route
+                                path="/tasks"
+                                element={
+                                    <ProtectedRoute>
+                                        <TasksPage />
+                                    </ProtectedRoute>
+                                }
                             />
                         </Routes>
                     </main>
