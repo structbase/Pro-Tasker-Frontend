@@ -33,7 +33,7 @@ export default function Header() {
 
                         {user && (
                             <li>
-                                <Link to="/tasks">Tasks</Link>
+                                <Link to="/projects">Projects</Link>
                             </li>
                         )}
                     </ul>
