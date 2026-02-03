@@ -5,9 +5,9 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import { ThemeProvider } from "./context/Theme/ThemeProvider";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import TasksPage from "./pages/TasksPage/TasksPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
+import ProjectsDashboard from "./pages/ProjectsDashboard/ProjectsDashboard";
+import ProjectDetailsPage from "./pages/ProjectDetailsPage/ProjectDetailsPage";
 
 export default function App() {
     return (
@@ -23,11 +23,20 @@ export default function App() {
                                 path="/register"
                                 element={<RegisterPage />}
                             />
+
                             <Route
-                                path="/tasks"
+                                path="/projects"
                                 element={
                                     <ProtectedRoute>
-                                        <TasksPage />
+                                        <ProjectsDashboard />
+                                    </ProtectedRoute>
+                                }
+                            />
+                            <Route
+                                path="/projects/:projectId"
+                                element={
+                                    <ProtectedRoute>
+                                        <ProjectDetailsPage />
                                     </ProtectedRoute>
                                 }
                             />
