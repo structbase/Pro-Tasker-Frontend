@@ -12,25 +12,20 @@ export default function Header() {
     };
 
     return (
-        <header className="header-container">
+        <header className="header-container sticky-top">
             <nav className="main-nav">
-                {/* Logo */}
+                {/* Logo Section */}
                 <Link to="/" className="brand">
-                    <img
-                        src="/icons/image1.png"
-                        alt="Pro-Tasker logo"
-                        className="logo"
-                    />
+                    <img src="/icons/image1.png" alt="Logo" className="logo" />
                     <span className="brand-name">Pro-Tasker</span>
                 </Link>
 
                 <div className="nav-menu">
-                    {/* Main links */}
-                    <ul className="nav-links">
+                    {/* Main Navigation */}
+                    <ul className="nav-links d-none d-md-flex">
                         <li>
                             <Link to="/">Home</Link>
                         </li>
-
                         {user && (
                             <li>
                                 <Link to="/projects">Projects</Link>
@@ -38,12 +33,12 @@ export default function Header() {
                         )}
                     </ul>
 
-                    {/* Auth links */}
+                    {/* Auth Actions */}
                     <ul className="auth-links">
                         {!user ? (
                             <>
                                 <li>
-                                    <Link to="/login" className="login-btn">
+                                    <Link to="/login" className="login-link">
                                         Login
                                     </Link>
                                 </li>
@@ -52,13 +47,16 @@ export default function Header() {
                                         to="/register"
                                         className="register-btn"
                                     >
-                                        Register
+                                        Get Started
                                     </Link>
                                 </li>
                             </>
                         ) : (
-                            <>
-                                <li className="username">{user.username}</li>
+                            <div className="d-flex align-items-center gap-3">
+                                <li className="username">
+                                    <span className="user-icon">👤</span>{" "}
+                                    {user.username}
+                                </li>
                                 <li>
                                     <button
                                         onClick={handleLogout}
@@ -67,7 +65,7 @@ export default function Header() {
                                         Logout
                                     </button>
                                 </li>
-                            </>
+                            </div>
                         )}
                     </ul>
                 </div>
