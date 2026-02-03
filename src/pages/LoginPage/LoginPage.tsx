@@ -41,7 +41,7 @@ export default function LoginPage() {
             localStorage.setItem("pro_tasker_token", token);
 
             // 4. On success, move user away from the login screen
-            navigate("/tasks");
+            navigate("/projects");
         } catch (err) {
             /**
              * Error Handling:
