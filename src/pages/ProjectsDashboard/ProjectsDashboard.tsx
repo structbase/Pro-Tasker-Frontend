@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../utils/api/axiosInstance";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
+import ProjectForm from "../../components/ProjectCard/ProjectForm";
 
 /**
  * ProjectsDashboard Component
@@ -57,7 +58,10 @@ export default function ProjectsDashboard() {
 
     return (
         <div className="container py-4">
-
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Create More Projects</h2>
+                <ProjectForm onSuccess={() => window.location.reload()} />
+            </div>
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>Your Projects ({projects.length})</h2>
                 {/* Future spot for "Create Project" button */}
