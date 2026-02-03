@@ -1,34 +1,29 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import type { JSX } from "react";
+import Loading from "../Common/Loading";
 
 /**
- * ProtectedRoute Component
- * A higher-order component that restricts access to authenticated users.
- * * @param children - Componets that are rendered after authentication
+ * ProtectedRoute
+ * Guards routes from unauthenticated access.
+ * Uses <Outlet /> to render child routes defined in the Router config.
  */
-export default function ProtectedRoute({
-    children,
-}: {
-    children: JSX.Element;
-}) {
+export default function ProtectedRoute() {
     const { user, loading } = useAuth();
+    const location = useLocation();
 
-    /**
-     * Prevent premature redirection while checking LocalStorage/API
-     * for an existing session on initial page load.
-     */
-    if (loading) return null; // Placeholder: Replace with a <Spinner /> for better UX
-
-    /**
-     * If no user is authenticated, redirect to login.
-     * 'replace' prevents the user from hitting the 'Back' button
-     * and getting stuck in a redirect loop.
-     */
-    if (!user) {
-        return <Navigate to="/login" replace />;
+    // Always handle the loading state first.
+    if (loading) {
+        return <Loading />;
     }
 
-    // Access granted: Render the protected content
-    return children;
+    // Single check for authentication.
+    // The useAuth hook should ensure 'user' is null if the token is invalid.
+    if (!user) {
+        // 'state' saves the URL the user was trying to reach.
+        // After login, you can redirect them back there.
+        return <Navigate to="/login" state={{ from: location }} replace />;
+    }
+
+    // Authenticated? Render the matched child route.
+    return <Outlet />;
 }
