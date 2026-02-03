@@ -75,6 +75,33 @@ export default function ProjectDetailsPage() {
         fetchProjectData();
     }, [projectId]); // Re-run if the user navigates to a different project ID
 
+
+
+    const statusChange = async (taskId: string) => {
+        const task = tasks.find((t) => t._id === taskId);
+        if (!task) return;
+
+        try {
+            const res = await api.put(`/tasks/${taskId}`, {
+                status: task.status === "Done" ? "To Do" : "Done",
+            });
+            setTasks((prev) =>
+                prev.map((t) => (t._id === taskId ? res.data : t)),
+            );
+        } catch (err) {
+            console.error("Failed to update task", err);
+        }
+    };
+
+    const deleteTask = async (taskId: string) => {
+        try {
+            await api.delete(`/tasks/${taskId}`);
+            setTasks((prev) => prev.filter((t) => t._id !== taskId));
+        } catch (err) {
+            console.error("Failed to delete task", err);
+        }
+    };
+
     // Render Conditional Loading/Error States
     if (loading) return <p className="container py-4">Loading project…</p>;
     if (error) return <p className="container py-4 text-danger">{error}</p>;
@@ -106,7 +133,15 @@ export default function ProjectDetailsPage() {
                 {tasks.length === 0 ? (
                     <p className="font-italic">No tasks yet.</p>
                 ) : (
-                    tasks.map((task) => <TaskItem key={task._id} task={task} />)
+                    tasks.map((task) => (
+                        <TaskItem
+                            key={task._id}
+                            task={task}
+                            onStatusChange={statusChange}
+                            onDelete={deleteTask}
+                            
+                        />
+                    ))
                 )}
             </section>
         </div>
