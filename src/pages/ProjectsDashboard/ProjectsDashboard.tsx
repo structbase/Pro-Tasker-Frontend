@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { api } from "../../utils/api/axiosInstance";
+import ProjectCard from "../../components/ProjectCard/ProjectCard";
 
 /**
  * ProjectsDashboard Component
@@ -57,9 +57,12 @@ export default function ProjectsDashboard() {
 
     return (
         <div className="container py-4">
-            <h2>Your Projects ({projects.length})</h2>
 
-            {/* Empty State: Guides the user when no data exists */}
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2>Your Projects ({projects.length})</h2>
+                {/* Future spot for "Create Project" button */}
+            </div>
+
             {projects.length === 0 ? (
                 <div className="text-center p-5 border rounded bg-light">
                     <p>
@@ -67,24 +70,11 @@ export default function ProjectsDashboard() {
                     </p>
                 </div>
             ) : (
-                <div className="projects-grid">
+                <div className="row">
                     {projects.map((project) => (
-                        /* Dynamic Linking: 
-                            Navigates to the ProjectPage component using the MongoDB _id.
-                            'text-decoration-none' keeps the UI clean.
-                        */
-                        <Link
-                            key={project._id}
-                            to={`/projects/${project._id}`}
-                            className="project-card border rounded p-3 mb-3 d-block text-decoration-none text-dark bg-white shadow-sm"
-                        >
-                            <h3>{project.name}</h3>
-                            {project.description && (
-                                <p className="text-muted mb-0">
-                                    {project.description}
-                                </p>
-                            )}
-                        </Link>
+                        <div key={project._id} className="col-md-6 col-lg-4">
+                            <ProjectCard project={project} />
+                        </div>
                     ))}
                 </div>
             )}
