@@ -24,5 +24,12 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true
     },
-    "include": ["src", "../dump/Header2.tsx", "../dump/Head"]
+    "include": [
+        "src",
+        "../dump/Header2.tsx",
+        "../dump/Head",
+        "../dump/TasksPages2.tsx",
+        "../dump/ProjectDetailsPage",
+        "../dump/TasksPage"
+    ]
 }
