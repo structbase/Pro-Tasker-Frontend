@@ -94,3 +94,15 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+
+.header-container ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-container a {
+  text-decoration: none;
+  color: inherit;
+}
