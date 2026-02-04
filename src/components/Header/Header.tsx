@@ -6,68 +6,86 @@ export default function Header() {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        logout();
-        navigate("/login");
-    };
-
     return (
         <header className="header-container sticky-top">
-            <nav className="main-nav">
-                {/* Logo Section */}
-                <Link to="/" className="brand">
-                    <img src="/icons/image1.png" alt="Logo" className="logo" />
-                    <span className="brand-name">Pro-Tasker</span>
-                </Link>
+            <nav className="navbar navbar-expand-md py-0">
+                <div className="container-fluid px-0">
+                    {/* Brand */}
+                    <Link to="/" className="navbar-brand brand">
+                        <img
+                            src="/icons/image1.png"
+                            alt="Logo"
+                            className="logo"
+                        />
+                        <span className="brand-name">Pro-Tasker</span>
+                    </Link>
 
-                <div className="nav-menu">
-                    {/* Main Navigation */}
-                    <ul className="nav-links d-none d-md-flex">
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        {user && (
-                            <li>
-                                <Link to="/projects">Projects</Link>
+                    {/* Hamburger Button for Mobile */}
+                    <button
+                        className="navbar-toggler border-0 shadow-none"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+
+                    {/* Collapsible Content */}
+                    <div
+                        className="collapse navbar-collapse"
+                        id="navbarContent"
+                    >
+                        <ul className="navbar-nav me-auto mb-2 mb-md-0 nav-links">
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/">
+                                    Home
+                                </Link>
                             </li>
-                        )}
-                    </ul>
-
-                    {/* Auth Actions */}
-                    <ul className="auth-links">
-                        {!user ? (
-                            <>
-                                <li>
-                                    <Link to="/login" className="login-link">
-                                        Login
+                            {user && (
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/projects">
+                                        Projects
                                     </Link>
                                 </li>
-                                <li>
+                            )}
+                        </ul>
+
+                        {/* Auth Actions */}
+                        <div className="d-flex align-items-center gap-2 auth-links py-3 py-md-0">
+                            {!user ? (
+                                <>
+                                    <Link
+                                        to="/login"
+                                        className="login-link text-decoration-none me-2"
+                                    >
+                                        Login
+                                    </Link>
                                     <Link
                                         to="/register"
-                                        className="register-btn"
+                                        className="register-btn text-decoration-none"
                                     >
                                         Get Started
                                     </Link>
-                                </li>
-                            </>
-                        ) : (
-                            <div className="d-flex align-items-center gap-3">
-                                <li className="username">
-                                    <span className="user-icon">👤</span>{" "}
-                                    {user.username}
-                                </li>
-                                <li>
+                                </>
+                            ) : (
+                                <>
+                                    <span className="username d-none d-lg-flex">
+                                        <span className="user-icon">👤</span>{" "}
+                                        {user.username}
+                                    </span>
                                     <button
-                                        onClick={handleLogout}
+                                        onClick={() => {
+                                            logout();
+                                            navigate("/login");
+                                        }}
                                         className="logout-btn"
                                     >
                                         Logout
                                     </button>
-                                </li>
-                            </div>
-                        )}
-                    </ul>
+                                </>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </nav>
         </header>
