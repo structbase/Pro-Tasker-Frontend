@@ -16,6 +16,8 @@ interface TaskItemProps {
     onDelete?: (id: string) => void;
 }
 
+import { Link } from "react-router-dom";
+
 export default function TaskItem({
     task,
     onStatusChange,
@@ -89,14 +91,22 @@ export default function TaskItem({
                 </div>
             </div>
 
-            {/* Delete Button */}
-            <button
-                className="btn btn-sm btn-light text-danger rounded-pill px-3 ms-3 fw-semibold border-0 shadow-sm"
-                style={{ fontSize: "0.75rem" }}
-                onClick={() => onDelete?.(task._id)}
-            >
-                Delete
-            </button>
+            <div className="d-flex align-items-center gap-2 ms-3">
+                <Link
+                    to={`/edit/task/${task._id}`}
+                    className="btn btn-sm btn-light text-primary rounded-pill px-3 fw-semibold border-0 shadow-sm"
+                    style={{ fontSize: "0.75rem" }}
+                >
+                    Edit
+                </Link>
+                <button
+                    className="btn btn-sm btn-light text-danger rounded-pill px-3 fw-semibold border-0 shadow-sm"
+                    style={{ fontSize: "0.75rem" }}
+                    onClick={() => onDelete?.(task._id)}
+                >
+                    Delete
+                </button>
+            </div>
         </div>
     );
 }
