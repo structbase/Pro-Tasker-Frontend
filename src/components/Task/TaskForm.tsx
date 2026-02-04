@@ -68,29 +68,39 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
         }
     };
 
+    // UI returning a bootstrap form element
     return (
-        // UI returning a bootstrap form element
-        <form onSubmit={handleSubmit} className="border rounded p-3">
-            <h4 className="mb-3">Create New Task</h4>
+        <form
+            onSubmit={handleSubmit}
+            className="border-0 rounded-4 p-4 bg-white shadow-sm"
+            style={{ borderTop: "4px solid #052b62" }}
+        >
+            {/* 1. Form Header - fs-4 is bold and clear */}
+            <h4 className="fw-bold mb-4 text-dark fs-4">Add New Task</h4>
 
-            {/* Error message display */}
-            {error && <p className="text-danger">{error}</p>}
+            {error && <p className="text-danger small">{error}</p>}
 
             <div className="mb-3">
-                <label className="form-label">Title</label>
+                <label className="form-label small fw-bold text-muted text-uppercase">
+                    Title
+                </label>
+                {/* 2. Larger font size for the main input */}
                 <input
                     type="text"
-                    className="form-control"
+                    className="form-control form-control-lg fs-5 border-light-subtle bg-light"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     disabled={loading}
+                    placeholder="Task name..."
                 />
             </div>
 
             <div className="mb-3">
-                <label className="form-label">Description</label>
+                <label className="form-label small fw-bold text-muted text-uppercase">
+                    Description
+                </label>
                 <textarea
-                    className="form-control"
+                    className="form-control border-light-subtle bg-light"
                     rows={3}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -98,11 +108,12 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
                 />
             </div>
 
-            <div className="mb-3">
-                <label className="form-label">Status</label>
-                {/* Dropdown menu for selecting the current status of the task */}
+            <div className="mb-4">
+                <label className="form-label small fw-bold text-muted text-uppercase">
+                    Status
+                </label>
                 <select
-                    className="form-select"
+                    className="form-select border-light-subtle bg-light"
                     value={status}
                     onChange={(e) => setStatus(e.target.value as typeof status)}
                     disabled={loading}
@@ -113,9 +124,10 @@ export default function TaskForm({ onSuccess }: TaskFormProps) {
                 </select>
             </div>
 
+            {/* 3. Create Button - matching the fs-5 from the Project Form */}
             <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary btn-lg w-100 fw-bold fs-5 shadow-sm"
                 disabled={loading}
             >
                 {loading ? "Creating…" : "Create Task"}
