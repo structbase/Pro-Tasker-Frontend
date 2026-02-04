@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { api } from "../../utils/api/axiosInstance";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 type EditType = "project" | "task";
 
@@ -20,6 +21,7 @@ export default function EditPage() {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [notFound, setNotFound] = useState(false);
 
     useEffect(() => {
         if (!type || !id) return;
@@ -40,8 +42,13 @@ export default function EditPage() {
                     // Capture the project ID this task belongs to
                     setParentProjectId(res.data.projectId || res.data.project);
                 }
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    if (error.response?.status === 404) {
+                        setNotFound(true);
+                        return;
+                    }
+                }
                 setError("Failed to load data");
             } finally {
                 setLoading(false);
@@ -90,8 +97,11 @@ export default function EditPage() {
                 ></div>
             </div>
         );
+        
+    if (notFound) return <NotFoundPage />;
 
     return (
+        // Bootstrap UI
         <div className="container py-5">
             <div className="row justify-content-center">
                 <div className="col-12 col-md-8 col-lg-6">

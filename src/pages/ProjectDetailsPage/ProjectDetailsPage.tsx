@@ -7,6 +7,7 @@ import TaskItem, {
     type TaskStatus,
 } from "../../components/Task/TaskItem";
 import TaskForm from "../../components/Task/TaskForm";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 /**
  * ProjectDetailsPage
@@ -28,6 +29,7 @@ export default function ProjectDetailsPage() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [notFound, setNotFound] = useState(false);
 
     /**
      * Refreshes the task list after a new task is created.
@@ -63,6 +65,10 @@ export default function ProjectDetailsPage() {
             } catch (err) {
                 // Axios-specific error handling to capture backend messages
                 if (axios.isAxiosError(err)) {
+                    if (err.response?.status === 404) {
+                        setNotFound(true);
+                        return;
+                    }
                     setError(
                         err.response?.data?.message ||
                             "Failed to load project or tasks",
@@ -118,6 +124,7 @@ export default function ProjectDetailsPage() {
 
     // Render Conditional Loading/Error States
     if (loading) return <p className="container py-4">Loading project…</p>;
+    if (notFound) return <NotFoundPage />;
     if (error) return <p className="container py-4 text-danger">{error}</p>;
     if (!project) return <p className="container py-4">Project not found.</p>;
 
