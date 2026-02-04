@@ -58,28 +58,38 @@ export default function ProjectForm({ onSuccess }: ProjectFormProps) {
         // UI returning a bootstrap form element
         <form
             onSubmit={handleSubmit}
-            className="border rounded p-4 bg-white shadow-sm"
+            className="border-0 rounded-4 p-4 bg-white shadow-sm" // Changed to border-0 and rounded-4 for a softer look
+            style={{ borderTop: "4px solid #052b62" }} // Adds a nice "brand" stripe at the top
         >
-            <h4 className="mb-3">Create New Project</h4>
+            <h4 className="fw-bold mb-4 text-dark fs-5">Start a New Project</h4>
 
-            {/* Show error message if something goes wrong */}
-            {error && <p className="text-danger">{error}</p>}
+            {error && (
+                <div className="alert alert-danger py-2 small" role="alert">
+                    {error}
+                </div>
+            )}
 
             <div className="mb-3">
-                <label className="form-label">Project Name</label>
+                <label className="form-label small fw-semibold text-muted text-uppercase">
+                    Project Name
+                </label>
                 <input
                     type="text"
-                    className="form-control"
+                    className="form-control form-control-lg border-light-subtle fs-5"
+                    style={{ backgroundColor: "#f8f9fa" }}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Client Website"
                 />
             </div>
 
-            <div className="mb-3">
-                <label className="form-label">Description</label>
+            <div className="mb-4">
+                <label className="form-label small fw-semibold text-muted text-uppercase">
+                    Description
+                </label>
                 <textarea
-                    className="form-control"
+                    className="form-control border-light-subtle"
+                    style={{ backgroundColor: "#f8f9fa" }}
                     rows={3}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
@@ -87,13 +97,19 @@ export default function ProjectForm({ onSuccess }: ProjectFormProps) {
                 />
             </div>
 
-            {/* Submit button changes text when loading */}
             <button
                 type="submit"
-                className="btn btn-primary"
+                className="btn btn-primary btn-lg w-100 shadow-sm fw-bold fs-5"
                 disabled={loading}
             >
-                {loading ? "Creating…" : "Create Project"}
+                {loading ? (
+                    <>
+                        <span className="spinner-border spinner-border-sm me-2" />
+                        Creating...
+                    </>
+                ) : (
+                    "Create Project"
+                )}
             </button>
         </form>
     );
