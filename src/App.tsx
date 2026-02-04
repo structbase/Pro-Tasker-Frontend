@@ -5,9 +5,11 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute/PublicRoute";
 import ProjectsDashboard from "./pages/ProjectsDashboard/ProjectsDashboard";
 import ProjectDetailsPage from "./pages/ProjectDetailsPage/ProjectDetailsPage";
 import EditPage from "./pages/EditPage/EditPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 export default function App() {
     return (
@@ -17,9 +19,11 @@ export default function App() {
             <main className="flex-fill">
                 <Routes>
                     {/* Public routes */}
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+                    <Route element={<PublicRoute />}>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                    </Route>
 
                     {/* Protected routes */}
                     <Route element={<ProtectedRoute />}>
@@ -33,6 +37,7 @@ export default function App() {
                         />
                         <Route path="/edit/:type/:id" element={<EditPage />} />
                     </Route>
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </main>
 
