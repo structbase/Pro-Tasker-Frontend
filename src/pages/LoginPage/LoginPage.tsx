@@ -32,7 +32,7 @@ export default function LoginPage() {
                 password: data.password,
             });
 
-            console.log("Step 2: Server Response ->", res.data); // for testing 
+            console.log("Step 2: Server Response ->", res.data); // for testing
             // 2. Destructure response data (Assumes backend sends { user, token })
             const { user, token } = res.data;
 
@@ -63,11 +63,17 @@ export default function LoginPage() {
     };
 
     return (
-        <AuthForm
-            mode="login"
-            onSubmit={handleLogin}
-            isLoading={loading}
-            error={error}
-        />
+        <div className="container h-100 d-flex align-items-center justify-content-center py-5 mt-5">
+            <div className="row w-100 justify-content-center">
+                <div className="col-12 col-md-8 col-lg-5 col-xl-4">
+                    <AuthForm
+                        mode="login"
+                        onSubmit={handleLogin}
+                        isLoading={loading}
+                        error={error}
+                    />
+                </div>
+            </div>
+        </div>
     );
 }

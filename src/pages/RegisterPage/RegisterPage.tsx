@@ -32,7 +32,7 @@ export default function RegisterPage() {
             localStorage.setItem("pro_tasker_token", token);
 
             // Redirect after register
-            navigate("/tasks");
+            navigate("/projects");
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 setError(
@@ -48,11 +48,17 @@ export default function RegisterPage() {
     };
 
     return (
-        <AuthForm
-            mode="register"
-            onSubmit={handleRegister}
-            isLoading={loading}
-            error={error}
-        />
+        <div className="container h-100 d-flex align-items-center justify-content-center py-5 mt-5">
+            <div className="row w-100 justify-content-center">
+                <div className="col-12 col-md-9 col-lg-6 col-xl-4">
+                    <AuthForm
+                        mode={"register"}
+                        onSubmit={handleRegister}
+                        isLoading={loading}
+                        error={error}
+                    />
+                </div>
+            </div>
+        </div>
     );
 }
