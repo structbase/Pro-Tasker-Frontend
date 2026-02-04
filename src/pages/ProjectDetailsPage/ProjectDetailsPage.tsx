@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { api } from "../../utils/api/axiosInstance";
-import TaskItem, { type Task } from "../../components/Task/TaskItem";
+import TaskItem, {
+    type Task,
+    type TaskStatus,
+} from "../../components/Task/TaskItem";
 import TaskForm from "../../components/Task/TaskForm";
 
 /**
@@ -75,16 +78,18 @@ export default function ProjectDetailsPage() {
         fetchProjectData();
     }, [projectId]); // Re-run if the user navigates to a different project ID
 
-
-
-    const statusChange = async (taskId: string) => {
-        const task = tasks.find((t) => t._id === taskId);
-        if (!task) return;
-
+    /**
+     * Updates a task status (Done vs To Do).
+     * It finds the task, sends the change to the server,
+     * and updates only that one task in our list.
+     */
+    const statusChange = async (taskId: string, status: TaskStatus) => {
         try {
             const res = await api.put(`/tasks/${taskId}`, {
-                status: task.status === "Done" ? "To Do" : "Done",
+                status,
             });
+
+            // Update the tasks state without refreshing the whole page
             setTasks((prev) =>
                 prev.map((t) => (t._id === taskId ? res.data : t)),
             );
@@ -93,9 +98,18 @@ export default function ProjectDetailsPage() {
         }
     };
 
+    /**
+     * Deletes a task forever.
+     * It tells the server to delete it, then removes it from our screen.
+     */
     const deleteTask = async (taskId: string) => {
+        // Simple confirmation so users don't delete by accident
+        if (!window.confirm("Are you sure you want to delete this task?"))
+            return;
+
         try {
             await api.delete(`/tasks/${taskId}`);
+            // Filter out the deleted task from the current list
             setTasks((prev) => prev.filter((t) => t._id !== taskId));
         } catch (err) {
             console.error("Failed to delete task", err);
@@ -108,42 +122,61 @@ export default function ProjectDetailsPage() {
     if (!project) return <p className="container py-4">Project not found.</p>;
 
     return (
-        // UI returning a bootstrap form element
         <div className="container py-4">
-            <header className="mb-4">
-                <h2>{project.name}</h2>
+            {/* Header Section */}
+            <header className="mb-4 border-bottom pb-3 d-flex align-items-start justify-content-between gap-3">
+                <div>
+                    <h1 className="fw-bold text-dark">{project.name}</h1>
                 {project.description && (
-                    <p className="text-muted">{project.description}</p>
+                    <p className="text-muted fs-5">{project.description}</p>
                 )}
+                </div>
+                <Link
+                    to={`/edit/project/${project._id}`}
+                    className="btn btn-outline-primary btn-sm"
+                >
+                    Edit Project
+                </Link>
             </header>
 
-            {/* Task Creation Section: 
-                'onSuccess' is a prop that lets the child tell this parent 
-                to refresh the list. 
-            */}
-            <section className="mb-5">
-                <TaskForm onSuccess={fetchTasks} />
-            </section>
+            <div className="row g-4">
+                {/* LEFT SIDE: Task Creation Form */}
+                <div className="col-lg-4">
+                    <div className="sticky-top" style={{ top: "2rem" }}>
+                        <TaskForm onSuccess={fetchTasks} />
+                    </div>
+                </div>
 
-            <hr />
+                {/* RIGHT SIDE: The Tasks List */}
+                <div className="col-lg-8">
+                    <div className="d-flex justify-content-between align-items-center mb-4">
+                        <h3 className="fw-bold mb-0">Project Tasks</h3>
+                        <span className="badge bg-dark rounded-pill px-3">
+                            {tasks.length}
+                        </span>
+                    </div>
 
-            {/* Task List Rendering */}
-            <section>
-                <h4>Tasks</h4>
-                {tasks.length === 0 ? (
-                    <p className="font-italic">No tasks yet.</p>
-                ) : (
-                    tasks.map((task) => (
-                        <TaskItem
-                            key={task._id}
-                            task={task}
-                            onStatusChange={statusChange}
-                            onDelete={deleteTask}
-                            
-                        />
-                    ))
-                )}
-            </section>
+                    {tasks.length === 0 ? (
+                        <div className="text-center p-5 border rounded-4 bg-light shadow-sm">
+                            <p className="text-muted mb-0">
+                                No tasks found for this project. Use the form to
+                                get started!
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="task-list">
+                            {tasks.map((task) => (
+                                <TaskItem
+                                    key={task._id}
+                                    task={task}
+                                    onStatusChange={statusChange}
+                                    onDelete={deleteTask}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }
