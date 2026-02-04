@@ -65,9 +65,7 @@ export default function ProjectsDashboard() {
 
     return (
         <div className="container py-4">
-            <div className="row g-4">
-                {" "}
-                {/* Added a Row with a gap (g-4) */}
+            <div className="row g-4 mt-2">
                 {/* LEFT COLUMN: The Action Area */}
                 <div className="col-lg-4">
                     <div className="sticky-top" style={{ top: "2rem" }}>
