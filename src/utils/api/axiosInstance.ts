@@ -5,7 +5,7 @@ import axios from "axios";
  * Uses a base URL and standard timeout for all API calls
  */
 export const api = axios.create({
-    baseURL: `${import.meta.env.VITE_API_URL}/api`,
+    baseURL: https://pro-tasker-backend-llnd.onrender.com/api,
     timeout: 8000,
     headers: {
         "Content-Type": "application/json",
