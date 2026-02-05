@@ -126,7 +126,7 @@ http://localhost:3001
 Production Endpoint:
 
 ```
-https://backend-b-0xau.onrender.com/api
+https://backend-b-0xau.onrender.com
 ```
 
 API configuration is handled within:
@@ -135,6 +135,94 @@ API configuration is handled within:
 frontend/src/utils/api/axiosInstance.ts
 frontend/.env
 ```
+
+
+---
+
+## 💻 Running Locally
+
+### Prerequisites
+
+* Node.js **18+** (Node 20 LTS recommended)
+* npm **9+**
+* Pro-Tasker Backend API running locally or deployed
+
+The frontend requires a live backend connection for authentication and data loading.
+
+---
+
+### Environment Configuration
+
+Create a `.env` file inside the `frontend/` directory:
+
+```bash
+VITE_API_URL=http://localhost:3001
+```
+
+**Environment Notes**
+
+* Use the **backend base URL only** (do not include `/api`)
+* API routes are automatically appended by the frontend
+* Production example:
+
+```bash
+VITE_API_URL=https://your-backend.onrender.com
+```
+
+---
+
+### Install Dependencies
+
+Inside the `frontend/` directory:
+
+```bash
+npm install
+```
+
+---
+
+### Start Development Server
+
+```bash
+npm run dev
+```
+
+Application runs at:
+
+```
+http://localhost:5173
+```
+
+---
+
+### Backend Requirement
+
+Ensure the backend server is running and accessible before launching the frontend.
+
+Expected local backend URL:
+
+```
+http://localhost:3001
+```
+
+---
+
+## 🔗 Backend Repository
+
+The Pro-Tasker frontend connects to a separate MERN backend responsible for authentication, API routing, and data management.
+
+👉 **Backend Source Code:**
+[https://github.com/structbase/Pro-Tasker-Backend](https://github.com/structbase/Pro-Tasker-Backend)]
+
+The backend provides:
+
+* JWT authentication and authorization
+* RESTful API endpoints
+* MongoDB data persistence
+* Project and task management logic
+* Secure user data handling
+
+
 
 ---
 
