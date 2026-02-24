@@ -12,10 +12,6 @@ The frontend communicates with a secure backend API and delivers authentication,
 
 > **Live Demo:** _[Click Here for Live Demo](https://frontend-b-9tki.onrender.com/)_
 
-**Demo Video Walkthrough:**
-
-> **Demo Video Walkthrough:** _[Click Here for Walkthrough](https://youtu.be/j7-10ilHeCw)_
-
 ---
 
 ## ⚠️ Render Hosting Notice
